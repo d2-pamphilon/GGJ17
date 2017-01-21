@@ -7,11 +7,13 @@ public class GameStates : MonoBehaviour
     public enum State
     {
         GS_NULL = 0,
-        //Core States
-        GS_MENU = 1,
+        //Menu States
+        GS_MAINMENU = 1,
         GS_SUBMENU,
+        GS_PAUSE,
+        //Core States
         GS_P_START,
-        GS_P_PLAYING,
+        GS_P_PLAY,
         GS_P_DEATH,
         //Player states
         GS_1PLAYER = 10,
@@ -23,11 +25,10 @@ public class GameStates : MonoBehaviour
         GS_EASYMODE = 20,
         GS_HARDMODE,
         //Enemy states
-        GS_E_EASY = 30,
-        GS_E_MEDIUM,
-        GS_E_HARD,
+        
         //Main States
         GS_CORE = 100,
+        GS_MENU,
         GS_PLAYER,
         GS_MULTIPLAYER,
         GS_DIFICULTY,
@@ -36,22 +37,22 @@ public class GameStates : MonoBehaviour
     };
 
     public State m_GSState;
+    public State m_GSMenu;
     public State m_GSCore;
     public State m_GSPlayer;
     public State m_GSMultiPlayer;
     public State m_GSDificulty;
-    public State m_GSEwave;
 
 
     // Use this for initialization
     void Start()
     {
         m_GSState = State.GS_CORE;
-        m_GSCore = State.GS_MENU;
+        m_GSMenu = State.GS_MAINMENU;
+        m_GSCore = State.GS_NULL;
         m_GSPlayer = State.GS_NULL;
         m_GSMultiPlayer = State.GS_NULL;
         m_GSDificulty = State.GS_NULL;
-        m_GSEwave = State.GS_NULL;
     }
 
 
@@ -62,6 +63,9 @@ public class GameStates : MonoBehaviour
             case State.GS_CORE:
                 m_GSCore = _GS;
                 break;
+            case State.GS_MENU:
+                m_GSMenu = _GS;
+                break;
             case State.GS_PLAYER:
                 m_GSPlayer = _GS;
                 break;
@@ -71,9 +75,7 @@ public class GameStates : MonoBehaviour
             case State.GS_DIFICULTY:
                 m_GSDificulty = _GS;
                 break;
-            case State.GS_ENEMY:
-                m_GSEwave = _GS;
-                break;
+
         }
 
         //m_GSCore = _GS;
@@ -82,6 +84,10 @@ public class GameStates : MonoBehaviour
     public State getCoreState()
     {
         return m_GSCore;
+    }
+    public State getMenuState()
+    {
+        return m_GSMenu;
     }
     public State getPlayState( )
     {
@@ -95,11 +101,5 @@ public class GameStates : MonoBehaviour
     {
         return m_GSDificulty;
     }
-    public State getEnemyState()
-    {
-        return m_GSEwave;
-    }
-
-
 
 }

@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(m_GS.getCoreState())
+        switch(m_GS.getMenuState())
         {
             case GameStates.State.GS_MENU:
                 m_MainMenu.SetActive(true);
