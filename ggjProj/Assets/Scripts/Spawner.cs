@@ -8,14 +8,16 @@ public class Spawner : MonoBehaviour
     public GameObject right;
     public GameObject up;
     public GameObject down;
-    public GameObject enemie;
+    public GameObject easy;
+    public GameObject medium;
+    public GameObject hard;
 
     public bool waveComplete;
     public int wave;
     public int dificulty;//0=all green - 50=all orange - 100=all red 
     public int numOfEnemies;
     public Vector2 spawnValues;
-    
+
 
     private Vector2 spawnPos;
     // Use this for initialization
@@ -38,61 +40,53 @@ public class Spawner : MonoBehaviour
         {
             waveComplete = false;
             wave++;
+            dificulty+=2;
             setNumOfEnimies();
-            spawnEnemie();
-
+            StartCoroutine(spawnEnemie());
         }
     }
-
+    
     private void setNumOfEnimies()
     {
-        for (int i = 1; i < 11; i++)
-        {
-            if (wave == i * 3)
-            {
-                dificulty++;
-            }
-        }
-
         numOfEnemies = 3 * wave;
     }
 
-    private void spawnEnemie()
+    IEnumerator spawnEnemie()
     {
         for (int i = 0; i < numOfEnemies; i++)
         {
             //spawn
             location();
-            if (dificulty >= 50)
+            if (dificulty <= 50)
             {
-                if (randomBool(dificulty))
+                if (!randomBool(dificulty))
                 {
-                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    Instantiate(medium, spawnPos, up.transform.rotation);
                     //spawn medium
                 }
                 else
                 {
-                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    Instantiate(easy, spawnPos, up.transform.rotation);
                     //spawn easy
                 }
             }
             else
             {
-                if (randomBool(dificulty))
+                if (!randomBool(dificulty))
                 {
-                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    Instantiate(hard, spawnPos, up.transform.rotation);
                     //spawn hard
-
                 }
                 else
                 {
-                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    Instantiate(medium, spawnPos, up.transform.rotation);
                     //spawn medium
                 }
             }
-
+            yield return new WaitForSeconds(1.0f);
         }
     }
+
 
     private void location()
     {
@@ -118,7 +112,7 @@ public class Spawner : MonoBehaviour
             {
                 spawnPos = new Vector2((Random.Range(-spawnValues.x, spawnValues.x)), down.transform.position.y);
             }
-           
+
         }
     }
 
@@ -126,7 +120,7 @@ public class Spawner : MonoBehaviour
     private bool randomBool(float chance)
     {
 
-        if (Random.value >= chance/100)
+        if (Random.value >= chance / 100)
         {
             return true;
         }
@@ -143,6 +137,8 @@ public class Spawner : MonoBehaviour
             waveComplete = true;
         }
     }
+
+
     //wave num
     //spawn at one of locations, heading towards center of screen
     //after all enemies killed, wave++, 
