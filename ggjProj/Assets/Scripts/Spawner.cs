@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class Spawner : MonoBehaviour
 {
 
@@ -8,24 +8,28 @@ public class Spawner : MonoBehaviour
     public GameObject right;
     public GameObject up;
     public GameObject down;
+    public GameObject enemie;
 
     public bool waveComplete;
     public int wave;
-    public int dificulty;//1=all green - 5=all orange - 10=all red 
+    public int dificulty;//0=all green - 50=all orange - 100=all red 
     public int numOfEnemies;
+    public Vector2 spawnValues;
+    
 
+    private Vector2 spawnPos;
     // Use this for initialization
     void Start()
     {
         wave = 0;
-        dificulty = 1;
+        dificulty = 0;
         waveComplete = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("space"))
+        if (Input.GetKeyDown("space"))
         {
             waveComplete = true;
         }
@@ -35,11 +39,9 @@ public class Spawner : MonoBehaviour
             waveComplete = false;
             wave++;
             setNumOfEnimies();
+            spawnEnemie();
 
         }
-
-
-
     }
 
     private void setNumOfEnimies()
@@ -52,15 +54,85 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        numOfEnemies = wave + (2 * wave);
+        numOfEnemies = 3 * wave;
     }
 
-    private void spawnEnimie()
+    private void spawnEnemie()
     {
-        //dificulty check
-        //spawn at location
+        for (int i = 0; i < numOfEnemies; i++)
+        {
+            //spawn
+            location();
+            if (dificulty >= 50)
+            {
+                if (randomBool(dificulty))
+                {
+                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    //spawn medium
+                }
+                else
+                {
+                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    //spawn easy
+                }
+            }
+            else
+            {
+                if (randomBool(dificulty))
+                {
+                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    //spawn hard
 
+                }
+                else
+                {
+                    Instantiate(enemie, spawnPos, up.transform.rotation);
+                    //spawn medium
+                }
+            }
+
+        }
     }
+
+    private void location()
+    {
+        if (randomBool(50))
+        {
+            if (randomBool(50))
+            {
+                spawnPos = new Vector2(left.transform.position.x, (Random.Range(-spawnValues.y, spawnValues.y)));
+            }
+            else
+            {
+                spawnPos = new Vector2(right.transform.position.x, (Random.Range(-spawnValues.y, spawnValues.y)));
+            }
+
+        }
+        else
+        {
+            if (randomBool(50))
+            {
+                spawnPos = new Vector2((Random.Range(-spawnValues.x, spawnValues.x)), up.transform.position.y);
+            }
+            else
+            {
+                spawnPos = new Vector2((Random.Range(-spawnValues.x, spawnValues.x)), down.transform.position.y);
+            }
+           
+        }
+    }
+
+
+    private bool randomBool(float chance)
+    {
+
+        if (Random.value >= chance/100)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
 
     public void enemieDead()
@@ -76,6 +148,7 @@ public class Spawner : MonoBehaviour
     //after all enemies killed, wave++, 
     //wave = dificulty and enmy num
     //when new enemy type lower enmynum that round
+
 
 
 }
