@@ -18,12 +18,12 @@ public class GameStates : MonoBehaviour
         //Player states
         GS_1PLAYER = 10,
         GS_2PLAYER,
-        //Define Player state
+        //Multi Player state
         GS_PLAYER1,
         GS_PLAYER2,
         //Difficulty states
-        GS_EASYMODE = 20,
-        GS_HARDMODE,
+        GS_EASYMODE = 20, // 2 controllers
+        GS_HARDMODE, //1 controller
         //Enemy states
         
         //Main States
@@ -51,8 +51,8 @@ public class GameStates : MonoBehaviour
         m_GSMenu = State.GS_MAINMENU;
         m_GSCore = State.GS_NULL;
         m_GSPlayer = State.GS_NULL;
-        m_GSMultiPlayer = State.GS_NULL;
-        m_GSDificulty = State.GS_NULL;
+        m_GSMultiPlayer = State.GS_PLAYER1; //Default null, gets setup when players are created.
+        m_GSDificulty = State.GS_EASYMODE; //GS_HARDMODE;
     }
 
 
