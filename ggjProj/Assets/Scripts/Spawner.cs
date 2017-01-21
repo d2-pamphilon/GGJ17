@@ -4,10 +4,13 @@ using System.Collections.Generic;
 public class Spawner : MonoBehaviour
 {
 
+    //change to vector2s hard coded
+
     public GameObject left;
     public GameObject right;
     public GameObject up;
     public GameObject down;
+
     public GameObject easy;
     public GameObject medium;
     public GameObject hard;
