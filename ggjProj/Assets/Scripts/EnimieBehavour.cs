@@ -55,7 +55,7 @@ public class EnimieBehavour : MonoBehaviour
         if (coll.gameObject.tag == "bullet")
         {
             m_Spawner.enemieDead();
-            m_score.addScore(1);
+            m_score.setScore(1);
             death();
         }
 
