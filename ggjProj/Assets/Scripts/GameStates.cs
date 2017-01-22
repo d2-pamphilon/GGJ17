@@ -68,12 +68,14 @@ public class GameStates : MonoBehaviour
                 break;
             case State.GS_PLAYER:
                 m_GSPlayer = _GS;
+               
                 break;
             case State.GS_MULTIPLAYER:
                 m_GSMultiPlayer = _GS;
                 break;
             case State.GS_DIFICULTY:
                 m_GSDificulty = _GS;
+                
                 break;
 
         }

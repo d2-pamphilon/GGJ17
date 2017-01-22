@@ -65,7 +65,6 @@ public class Controler : MonoBehaviour
             }
         }
 
-        
 
         switch (_GS.getPlayState())
         {
@@ -83,8 +82,8 @@ public class Controler : MonoBehaviour
                         break;
                 }
                 break;
-            default: _GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_1PLAYER);
-                break;
+            /*default: _GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_1PLAYER);
+                break;*/
         }
     }
 

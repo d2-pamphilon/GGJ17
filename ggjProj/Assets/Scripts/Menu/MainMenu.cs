@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour
     public Button m_EasyButton;
     public Button m_HardButton;
 
+    public Dropdown m_DropdownMenu;
+    public Button m_QuitButton;
+
+    public bool m_show;
+
 
     // Use this for initialization
     void Start()
@@ -25,6 +30,9 @@ public class MainMenu : MonoBehaviour
         m_2playerButton.interactable = true;
         m_EasyButton.interactable = false;
         m_HardButton.interactable = false;
+
+        m_DropdownMenu.interactable = false;
+        m_QuitButton.interactable = false;
 
     }
 
@@ -44,29 +52,34 @@ public class MainMenu : MonoBehaviour
             default:
                 m_MainMenu.SetActive(false);
                 m_SubMenu.SetActive(false);
+                m_DropdownMenu.interactable = true;
+                m_QuitButton.interactable = true;
                 break;
         }
-        switch (m_int)
+        if (m_GS.getMenuState() != GameStates.State.GS_NULL)
         {
-            case 0:
-                m_GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_1PLAYER);
+            
+            switch (m_int)
+            {
+                case 0:
+                    m_GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_1PLAYER);
 
-                break;
-            case 1:
-                m_GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_2PLAYER);
-                break;
+                    break;
+                case 1:
+                    m_GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_2PLAYER);
+                    break;
+            }
+
+            switch (m_Dint)
+            {
+                case 0:
+                    m_GS.SetGameState(GameStates.State.GS_DIFICULTY, GameStates.State.GS_EASYMODE);
+                    break;
+                case 1:
+                    m_GS.SetGameState(GameStates.State.GS_DIFICULTY, GameStates.State.GS_HARDMODE);
+                    break;
+            }
         }
-
-        switch (m_Dint)
-        {
-            case 0:
-                m_GS.SetGameState(GameStates.State.GS_DIFICULTY, GameStates.State.GS_EASYMODE);
-                break;
-            case 1:
-                m_GS.SetGameState(GameStates.State.GS_DIFICULTY, GameStates.State.GS_HARDMODE);
-                break;
-        }
-
 
     }
 
