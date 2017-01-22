@@ -48,11 +48,11 @@ public class GameStates : MonoBehaviour
     void Start()
     {
         m_GSState = State.GS_CORE;
-        m_GSMenu = State.GS_MAINMENU;
+        m_GSMenu = State.GS_NULL;
         m_GSCore = State.GS_NULL;
-        m_GSPlayer = State.GS_NULL;
-        m_GSMultiPlayer = State.GS_PLAYER1; //Default null, gets setup when players are created.
-        m_GSDificulty = State.GS_EASYMODE; //GS_HARDMODE;
+        m_GSPlayer = State.GS_2PLAYER;
+        m_GSMultiPlayer = State.GS_NULL; //Default null, gets setup when players are created.
+        m_GSDificulty = State.GS_HARDMODE; //GS_HARDMODE;
     }
 
 

@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
     {
         switch(m_GS.getMenuState())
         {
-            case GameStates.State.GS_MENU:
+            case GameStates.State.GS_MAINMENU:
                 m_MainMenu.SetActive(true);
                 m_SubMenu.SetActive(false);
                 break;
