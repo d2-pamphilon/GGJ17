@@ -4,12 +4,11 @@ using System.Collections.Generic;
 public class Spawner : MonoBehaviour
 {
 
-    //change to vector2s hard coded
-
     public GameObject left;
     public GameObject right;
     public GameObject up;
     public GameObject down;
+
 
     public GameObject easy;
     public GameObject medium;
@@ -20,7 +19,6 @@ public class Spawner : MonoBehaviour
     public int dificulty;//0=all green - 50=all orange - 100=all red 
     public int numOfEnemies;
     public Vector2 spawnValues;
-
 
     private Vector2 spawnPos;
     // Use this for initialization
@@ -135,7 +133,8 @@ public class Spawner : MonoBehaviour
     public void enemieDead()
     {
         numOfEnemies--;
-        if (numOfEnemies >= 0)
+
+        if (numOfEnemies <= 0)
         {
             waveComplete = true;
         }
