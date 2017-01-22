@@ -48,8 +48,7 @@ public class Controler : MonoBehaviour
     {
         m_PS = m_player.GetPlayerState();
         m_Gs = _GS.getPlayState();
-        print(m_Gs);
-        print("hi");
+
 
         if (Input.GetButton("BackButton")) // debug set both players back to the centre
         {
@@ -271,6 +270,15 @@ public class Controler : MonoBehaviour
 
             if (Input.GetButton("BackButtonLeft"))
             {
+                print("shoot1");
+                Instantiate(m_bullet, transform.position, transform.rotation);
+            }
+        }
+        else
+        {
+            if (Input.GetButton("BackButtonLeft"))
+            {
+                print("shoot2");
                 Instantiate(m_bullet, transform.position, transform.rotation);
             }
         }
@@ -295,6 +303,13 @@ public class Controler : MonoBehaviour
                 Instantiate(m_bullet, transform.position, transform.rotation);
             }
         }
+        else
+        {
+            if (Input.GetButton("BackButtonLeft"))
+            {
+                Instantiate(m_bullet, transform.position, transform.rotation);
+            }
+        }
     }
 
     void TurretAimP1HC()
@@ -308,6 +323,13 @@ public class Controler : MonoBehaviour
             angle = Mathf.Atan2(input.x, -input.y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + m_chAngle));
 
+            if (Input.GetButton("BackButtonLeft"))
+            {
+                Instantiate(m_bullet, transform.position, transform.rotation);
+            }
+        }
+        else
+        {
             if (Input.GetButton("BackButtonLeft"))
             {
                 Instantiate(m_bullet, transform.position, transform.rotation);
@@ -327,6 +349,13 @@ public class Controler : MonoBehaviour
             angle = Mathf.Atan2(input.x, -input.y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + m_chAngle));
 
+            if (Input.GetButton("BackButtonRight"))
+            {
+                Instantiate(m_bullet, transform.position, transform.rotation);
+            }
+        }
+        else
+        {
             if (Input.GetButton("BackButtonRight"))
             {
                 Instantiate(m_bullet, transform.position, transform.rotation);

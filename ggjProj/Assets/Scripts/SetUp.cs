@@ -6,6 +6,8 @@ public class SetUp : MonoBehaviour
 
     public GameStates m_GS;
     public GameObject m_Player;
+    public GameObject m_Player1Object;
+    public GameObject m_Player2Object;
     public Player m_player1;
     public Player m_player2;
 
@@ -20,11 +22,12 @@ public class SetUp : MonoBehaviour
 
         m_SpawnLoc = m_Spawn.transform.position;
 
-        Instantiate(m_Player, new Vector3(m_SpawnLoc.x + m_sepXInt, m_SpawnLoc.y, m_SpawnLoc.z) , new Quaternion(0, 0, 0, 0));
+        m_Player1Object = (GameObject)Instantiate(m_Player, new Vector3(m_SpawnLoc.x + m_sepXInt, m_SpawnLoc.y, m_SpawnLoc.z) , new Quaternion(0, 0, 0, 0));
         m_player1 = m_Player.GetComponent<Player>();
         m_player1.SetPlayerState(GameStates.State.GS_PLAYER1);
 
-        Instantiate(m_Player, new Vector3(m_SpawnLoc.x - m_sepXInt, m_SpawnLoc.y, m_SpawnLoc.z) , new Quaternion(0, 0, 0, 0));
+        m_Player2Object = (GameObject)Instantiate(m_Player, new Vector3(m_SpawnLoc.x - m_sepXInt, m_SpawnLoc.y, m_SpawnLoc.z) , new Quaternion(0, 0, 0, 0));
+
         m_player2 = m_Player.GetComponent<Player>();
         m_player2.SetPlayerState(GameStates.State.GS_PLAYER2);
 
@@ -33,13 +36,13 @@ public class SetUp : MonoBehaviour
 
     void Update()
     {
-       /*switch(m_GS.getPlayState())
+       switch(m_GS.getPlayState())
         {
-            case GameStates.State.GS_1PLAYER:
+            case GameStates.State.GS_1PLAYER: m_Player2Object.SetActive(false);
                 break;
-            case GameStates.State.GS_2PLAYER:
-               break;
-        }*/
+            case GameStates.State.GS_2PLAYER: m_Player2Object.SetActive(true);
+                break;
+        }
     }
 
 

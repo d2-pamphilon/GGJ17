@@ -13,7 +13,7 @@ public class DropDown : MonoBehaviour
     public List<string> m_names;
 
     public int m_int;
-
+    public Text m_lable;
 
     // public string[] ports;
 
@@ -40,7 +40,27 @@ public class DropDown : MonoBehaviour
                 m_GS.SetGameState(GameStates.State.GS_DIFICULTY, GameStates.State.GS_HARDMODE);
                 break;
         }
-      
+
+
+        if(m_GS.getPlayState() == GameStates.State.GS_1PLAYER)
+        {
+            m_int = 0;
+        }
+        if (m_GS.getPlayState() == GameStates.State.GS_2PLAYER)
+        {
+            if (m_GS.getDificulState() == GameStates.State.GS_EASYMODE)
+            {
+                m_int = 1;
+            }
+            else if (m_GS.getDificulState() == GameStates.State.GS_HARDMODE)
+            {
+                m_int = 2;
+            }
+        }
+
+
+        m_dropdown.RefreshShownValue();
+
     }
 
     void PopulateList()
