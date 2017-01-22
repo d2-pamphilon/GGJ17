@@ -8,7 +8,7 @@ public class DropDown : MonoBehaviour
     public GameStates m_GS;
 
     public Dropdown m_dropdown;
-    public Text m_text;
+
 
     public List<string> m_names;
 
@@ -51,6 +51,5 @@ public class DropDown : MonoBehaviour
     public void DropdownIndexChanged(int _index)
     {
         m_int = _index;
-        m_text.text = m_names[_index];
     }
 }
