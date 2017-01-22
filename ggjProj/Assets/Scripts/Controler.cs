@@ -7,8 +7,8 @@ public class Controler : MonoBehaviour
     public Rigidbody2D m_rb;
 
     public GameObject m_bullet;
-    public Vector2 m_baseInput;
-    public Vector2 m_turretInput;
+    private Vector2 m_baseInput;
+    //private Vector2 m_turretInput;
     public float m_MoveSpeed;
     // public int m_Player;
 
@@ -16,30 +16,29 @@ public class Controler : MonoBehaviour
 
     private GameObject m_GameState;
     private GameStates _GS;
-    public GameStates.State m_Gs;
+    private GameStates.State m_Gs;
     public GameStates.State m_PS;
 
     private GameObject m_PlayerObject;
     public Player m_player;
 
-    public float m_TempValY = 0f;
-    public float m_TempValX = 0f;
-    public float angle;
+    private float m_TempValY = 0f;
+    private float m_TempValX = 0f;
+    private float angle;
     public float m_chAngle;
 
 
     // Use this for initialization
     void Start()
     {
-
         m_GameState = GameObject.FindGameObjectWithTag("GameStateSystem");
         _GS = m_GameState.GetComponent<GameStates>();
 
-       // m_PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        // m_PlayerObject = GameObject.FindGameObjectWithTag("Player");
         m_player = GetComponent<Player>();
 
         m_SpawnLoc = GetComponent<GameObject>();
-       
+
 
     }
 
@@ -48,30 +47,14 @@ public class Controler : MonoBehaviour
     {
         m_PS = m_player.GetPlayerState();
         m_Gs = _GS.getPlayState();
-
-
-        if (Input.GetButton("BackButton")) // debug set both players back to the centre
-        {
-            switch (m_PS)
-            {
-                case GameStates.State.GS_PLAYER1:
-                    transform.position = new Vector2(1, 0);
-                    transform.rotation = m_SpawnLoc.transform.rotation;
-                    break;
-                case GameStates.State.GS_PLAYER2:
-                    transform.position = new Vector2(-1, 0);
-                    transform.rotation = m_SpawnLoc.transform.rotation;
-                    break;
-            }
-        }
-
-
+        
         switch (_GS.getPlayState())
         {
             case GameStates.State.GS_1PLAYER:
                 OneControl(); //1 controlls
                 break;
             case GameStates.State.GS_2PLAYER: //goes intto switch
+
                 switch (_GS.getDificulState())
                 {
                     case GameStates.State.GS_EASYMODE:
@@ -82,8 +65,8 @@ public class Controler : MonoBehaviour
                         break;
                 }
                 break;
-            /*default: _GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_1PLAYER);
-                break;*/
+                /*default: _GS.SetGameState(GameStates.State.GS_PLAYER, GameStates.State.GS_1PLAYER);
+                    break;*/
         }
     }
 
@@ -127,32 +110,38 @@ public class Controler : MonoBehaviour
     {
         if (Input.GetButton("ButtonAP1"))
         {
-           
-            m_TempValY = -1f;
-        }
-        else if (Input.GetButton("ButtonBP1"))
-        {
-            
-            m_TempValX = 1f;
-        }
-        else if (Input.GetButton("ButtonXP1"))
-        {
-           
-            m_TempValX = -1f;
-        }
-        else if (Input.GetButton("ButtonYP1"))
-        {
-           
-            m_TempValY = 1f;
-        }
-        else
-        {
-            m_TempValY = 0f;
-            m_TempValX = 0f;
+
+            //  m_TempValY = -1f;
+            transform.position += Vector3.down * m_MoveSpeed;
         }
 
-        m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
-        transform.Translate(m_baseInput, 0);
+        if (Input.GetButton("ButtonBP1"))
+        {
+            transform.position += Vector3.right * m_MoveSpeed;
+            // m_TempValX = 1f;
+        }
+
+        if (Input.GetButton("ButtonXP1"))
+        {
+            transform.position += Vector3.left * m_MoveSpeed;
+            //m_TempValX = -1f;
+        }
+
+        if (Input.GetButton("ButtonYP1"))
+        {
+            transform.position += Vector3.up * m_MoveSpeed;
+            //  m_TempValY = 1f;
+        }
+
+
+        // if(Input.GetButton(null))
+        //{
+        //    m_TempValY = 0f;
+        //    m_TempValX = 0f;
+        //}
+
+        //  m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
+        //  transform.Translate(m_baseInput, 0);
 
         /*m_TempValY = 0f;
         m_TempValX = 0f;*/
@@ -161,32 +150,26 @@ public class Controler : MonoBehaviour
     {
         if (Input.GetButton("ButtonAP2"))
         {
-            
-            m_TempValY = -1f;
+            transform.position += Vector3.down * m_MoveSpeed;
         }
-        else if (Input.GetButton("ButtonBP2"))
+        if (Input.GetButton("ButtonBP2"))
         {
-            
-            m_TempValX = 1f;
+            transform.position += Vector3.right * m_MoveSpeed;
         }
-        else if (Input.GetButton("ButtonXP2"))
+        if (Input.GetButton("ButtonXP2"))
         {
-            
-            m_TempValX = -1f;
+
+            transform.position += Vector3.left * m_MoveSpeed; ;
         }
-        else if (Input.GetButton("ButtonYP2"))
+        if (Input.GetButton("ButtonYP2"))
         {
-          
-            m_TempValY = 1f;
-        }
-        else
-        {
-            m_TempValY = 0f;
-            m_TempValX = 0f;
+
+            transform.position += Vector3.up * m_MoveSpeed;
         }
 
-        m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
-        transform.Translate(m_baseInput, 0);
+
+        // m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
+        // transform.Translate(m_baseInput, 0);
 
         /*m_TempValY = 0f;
         m_TempValX = 0f;*/
@@ -195,59 +178,51 @@ public class Controler : MonoBehaviour
     {
         if (Input.GetAxis("LeftButtonVertical") == 1)
         {
-           
-            m_TempValX = 1f;
+
+            transform.position += Vector3.down * m_MoveSpeed;
         }
-        else if (Input.GetAxis("LeftButtonVertical") == -1)
+        if (Input.GetAxis("LeftButtonVertical") == -1)
         {
-          
-            m_TempValX = -1f;
+
+            transform.position += Vector3.up * m_MoveSpeed;
         }
-        else if (Input.GetAxis("LeftButtonHorizontal") == 1)
+        if (Input.GetAxis("LeftButtonHorizontal") == 1)
         {
-           
-            m_TempValY = 1f;
+
+            transform.position += Vector3.right * m_MoveSpeed;
         }
-        else if (Input.GetAxis("LeftButtonHorizontal") == -1)
+        if (Input.GetAxis("LeftButtonHorizontal") == -1)
         {
-           
-            m_TempValY = -1f;
-        }
-        else
-        {
-            m_TempValY = 0f;
-            m_TempValX = 0f;
+
+            transform.position += Vector3.left * m_MoveSpeed;
         }
 
-        m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
-        transform.Translate(m_baseInput, 0);
+
+        // m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
+        //transform.Translate(m_baseInput, 0);
     }
     void ABXYHC()
     {
         if (Input.GetButton("ButtonAP1"))
         {
-            m_TempValX = -1f;
+            transform.position += Vector3.down * m_MoveSpeed;
         }
         else if (Input.GetButton("ButtonBP1"))
         {
-            m_TempValY = -1f;
+            transform.position += Vector3.right * m_MoveSpeed;
         }
         else if (Input.GetButton("ButtonXP1"))
         {
-            m_TempValY = 1f;
+            transform.position += Vector3.left * m_MoveSpeed;
         }
         else if (Input.GetButton("ButtonYP1"))
         {
-            m_TempValX = 1f;
-        }
-        else
-        {
-            m_TempValY = 0f;
-            m_TempValX = 0f;
+            transform.position += Vector3.up * m_MoveSpeed;
         }
 
-        m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
-        transform.Translate(m_baseInput, 0);
+
+        // m_baseInput = new Vector2(m_TempValX * Time.deltaTime * m_MoveSpeed, m_TempValY * Time.deltaTime * m_MoveSpeed);
+        // transform.Translate(m_baseInput, 0);
 
         /*m_TempValY = 0f;
         m_TempValX = 0f;*/
@@ -267,18 +242,20 @@ public class Controler : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
 
-            if (Input.GetButton("BackButtonLeft"))
+            if (Input.GetButton("BackButtonLeft") && (m_PS == GameStates.State.GS_PLAYER1))
             {
-                print("shoot1");
-                Instantiate(m_bullet, transform.position, transform.rotation);
+                // print("shoot1");
+                // Instantiate(m_bullet, transform.position, transform.rotation);
+                shoot();
             }
         }
         else
         {
-            if (Input.GetButton("BackButtonLeft"))
+            if (Input.GetButton("BackButtonLeft") && (m_PS == GameStates.State.GS_PLAYER1))
             {
-                print("shoot2");
-                Instantiate(m_bullet, transform.position, transform.rotation);
+                shoot();
+                //print("shoot2");
+                //  Instantiate(m_bullet, transform.position, transform.rotation);
             }
         }
 
@@ -297,16 +274,18 @@ public class Controler : MonoBehaviour
             angle = Mathf.Atan2(input.x, -input.y) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-            if (Input.GetButton("BackButtonLeft"))
+            if (Input.GetButton("BackButtonRight") && (m_PS == GameStates.State.GS_PLAYER2))
             {
-                Instantiate(m_bullet, transform.position, transform.rotation);
+                shoot();
+                // Instantiate(m_bullet, transform.position, transform.rotation);
             }
         }
         else
         {
-            if (Input.GetButton("BackButtonLeft"))
+            if (Input.GetButton("BackButtonRight") && (m_PS == GameStates.State.GS_PLAYER2))
             {
-                Instantiate(m_bullet, transform.position, transform.rotation);
+                shoot();
+                //  Instantiate(m_bullet, transform.position, transform.rotation);
             }
         }
     }
@@ -362,7 +341,13 @@ public class Controler : MonoBehaviour
         }
     }
 
-
+    private void shoot()
+    {
+      
+            Instantiate(m_bullet, transform.position, transform.rotation);
+       
+    }
+   
 }
 
 

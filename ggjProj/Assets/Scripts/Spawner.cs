@@ -26,16 +26,13 @@ public class Spawner : MonoBehaviour
     {
         wave = 0;
         dificulty = 0;
-        waveComplete = false;
+        waveComplete = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            waveComplete = true;
-        }
+        
 
         if (waveComplete)
         {

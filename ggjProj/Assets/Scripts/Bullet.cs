@@ -9,10 +9,11 @@ public class Bullet : MonoBehaviour {
     public float m_Time;
     public float m_lifetime;
 
+
     void Start()
     {
         m_RB = GetComponent<Rigidbody2D>();
-
+    
     }
 
     void FixedUpdate()
@@ -20,8 +21,9 @@ public class Bullet : MonoBehaviour {
         m_RB.AddForce(-transform.up * m_thrust);
 
         m_Time += 1.0f * Time.deltaTime;
-        if (m_Time >= 1)
+        if (m_Time >= m_lifetime)
         {
+
             GameObject.Destroy(gameObject);
         }
     }

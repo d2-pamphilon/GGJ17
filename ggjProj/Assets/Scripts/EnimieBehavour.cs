@@ -52,7 +52,7 @@ public class EnimieBehavour : MonoBehaviour
         Spawner m_Spawner = tempGO.GetComponent<Spawner>();
         Score m_score = tempGO.GetComponent<Score>();
 
-        if (coll.gameObject.tag == "bullet")
+        if (coll.gameObject.tag == "Bullet")
         {
             m_Spawner.enemieDead();
             m_score.setScore(1);

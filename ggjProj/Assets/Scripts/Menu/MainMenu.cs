@@ -20,12 +20,16 @@ public class MainMenu : MonoBehaviour
     public Dropdown m_DropdownMenu;
     public Button m_QuitButton;
 
+    public Dropdown m_dropDown;
     public bool m_show;
 
+    public Text m_scoreText;
+    private GameObject m_score;
 
     // Use this for initialization
     void Start()
     {
+        m_show = false;
         m_1playerButton.interactable = true;
         m_2playerButton.interactable = true;
         m_EasyButton.interactable = false;
@@ -33,7 +37,8 @@ public class MainMenu : MonoBehaviour
 
         m_DropdownMenu.interactable = false;
         m_QuitButton.interactable = false;
-
+        m_dropDown.interactable = false;
+        m_score = GameObject.FindGameObjectWithTag("SpawnControler");
     }
 
     // Update is called once per frame
@@ -79,7 +84,22 @@ public class MainMenu : MonoBehaviour
                     m_GS.SetGameState(GameStates.State.GS_DIFICULTY, GameStates.State.GS_HARDMODE);
                     break;
             }
+
         }
+        if (Input.GetButtonDown("BackButton"))
+        {
+            if (m_show)
+            {
+                m_show = false;
+            }
+            else
+            {
+                m_show = true;
+            }
+        }
+        m_dropDown.interactable = m_show;
+        
+        Text_Score(m_score.GetComponent<Score>().getScore());
 
     }
 
@@ -139,6 +159,11 @@ public class MainMenu : MonoBehaviour
         m_Dint = 1;
         m_EasyButton.interactable = true;
         m_HardButton.interactable = false;
+    }
+
+    public void Text_Score(int _score)
+    {
+        m_scoreText.text = "Score: " +_score.ToString();
     }
 
     /* public void Button_Player_Inc()
